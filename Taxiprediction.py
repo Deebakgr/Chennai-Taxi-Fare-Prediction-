@@ -160,6 +160,10 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from datetime import datetime
+from pytz import timezone
+
+# Set IST timezone
+ist = timezone('Asia/Kolkata')
 
 # Load datasets
 @st.cache_data
@@ -259,8 +263,9 @@ if from_location.size > 0 and to_location.size > 0:
         index=1
     )
 
-    # Determine time of day
-    current_hour = datetime.now().hour
+    # Determine time of day using IST
+    current_time = datetime.now(ist)
+    current_hour = current_time.hour
     time_of_day = map_time_of_day(current_hour)
 
     # Traffic and time multipliers
